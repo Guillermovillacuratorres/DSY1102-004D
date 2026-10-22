@@ -48,8 +48,9 @@ public class VistaunoController {
         }
 
 
-        JsonPersonaDao pDao = new JsonPersonaDao();
-        int idPersona = pDao.cargar().size() + 1;
+        //JsonPersonaDao pDao = new JsonPersonaDao();
+        repositorio.cargarDesdeJson();
+        int idPersona = repositorio.getPersonas().size() + 1;
 
 
         repositorio.agregar(new Persona(idPersona,nombre,apellido));
@@ -57,11 +58,23 @@ public class VistaunoController {
         alert.setHeaderText("Agregar persona");
         alert.setContentText("Persona agregada correctamente!!!");
         alert.show();
+        limpiarFormulario();
+
+
+
 
     }
 
     @FXML
     private void navegarVistaDos(){
         AppNavigator.mostrarVista("vista-dos.fxml","Vista Dos");
+    }
+
+
+
+    private void limpiarFormulario(){
+        txtNombre.setText("");
+        txtApellido.clear();
+
     }
 }

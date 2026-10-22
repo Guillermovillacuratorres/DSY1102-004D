@@ -24,4 +24,9 @@ public class PersonaRepository {
         dao.guardar(new ArrayList<>(personas));
     }
 
+    public void eliminar(Persona persona){
+        personas.remove(persona);
+        dao.guardar(new ArrayList<>(personas));
+    }
+
 }
