@@ -57,4 +57,7 @@ public abstract class Persona {
                 ", casado=" + casado +
                 '}';
     }
+
+    public abstract int calcularSueldo();
+
 }

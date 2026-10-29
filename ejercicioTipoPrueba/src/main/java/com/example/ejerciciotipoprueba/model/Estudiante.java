@@ -19,8 +19,15 @@ public class Estudiante  extends  Persona{
         return nivelConocimientos;
     }
 
-    public void setNivelConocimientos(String nivelConocimientos) {
-        this.nivelConocimientos = nivelConocimientos;
+
+    public String setNivelConocimientos(String nivelConocimientos) {
+
+        if (nivelConocimientos == null) {
+            return "El nivel conocimientos es nullo";
+        }
+         this.nivelConocimientos = nivelConocimientos;
+        return nivelConocimientos;
+
     }
 
 
@@ -33,5 +40,10 @@ public class Estudiante  extends  Persona{
                 ", nombrePersona='" + nombrePersona + '\'' +
                 ", casado=" + casado +
                 '}';
+    }
+
+    @Override
+    public int calcularSueldo() {
+        return 200;
     }
 }

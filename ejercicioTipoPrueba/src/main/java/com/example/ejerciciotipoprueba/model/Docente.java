@@ -46,4 +46,9 @@ public class Docente extends Persona{
                 ", casado=" + casado +
                 '}';
     }
+
+    @Override
+    public int calcularSueldo() {
+        return 100;
+    }
 }

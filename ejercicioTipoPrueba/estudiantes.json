@@ -1,9 +1,9 @@
 [
   {
-    "nivelConocimientos": "111",
-    "idPersona": 2,
-    "edadPersona": 111,
-    "nombrePersona": "111",
+    "nivelConocimientos": "",
+    "idPersona": 7,
+    "edadPersona": 1,
+    "nombrePersona": "",
     "casado": false
   }
 ]
