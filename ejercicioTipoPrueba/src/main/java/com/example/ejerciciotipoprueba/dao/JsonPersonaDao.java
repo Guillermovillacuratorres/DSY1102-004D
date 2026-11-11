@@ -12,14 +12,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class JsonPersonaDao implements PersonaDao{
+public class JsonPersonaDao {
 
 
     private final String RUTA_DOCENTES = "docentes.json";
     private final String RUTA_ESTUDIANTES = "estudiantes.json";
     private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
-    @Override
+   // @Override
     public List<Docente> cargarDocentes() {
         if(!new File(RUTA_DOCENTES).exists()){
             return new ArrayList<>();
@@ -36,7 +36,7 @@ public class JsonPersonaDao implements PersonaDao{
         }
     }
 
-    @Override
+   // @Override
     public List<Estudiante> cargarEstudiantes() {
         if(!new File(RUTA_ESTUDIANTES).exists()){
             return new ArrayList<>();
@@ -53,7 +53,7 @@ public class JsonPersonaDao implements PersonaDao{
         }
     }
 
-    @Override
+    //@Override
     public void guardarDocente(List<Docente> docentes) {
         try(FileWriter writer = new FileWriter(RUTA_DOCENTES)){
             gson.toJson(docentes, writer);
@@ -62,7 +62,7 @@ public class JsonPersonaDao implements PersonaDao{
         }
     }
 
-    @Override
+  //  @Override
     public void guardarEstudiante(List<Estudiante> estudiantes) {
         try(FileWriter writer = new FileWriter(RUTA_ESTUDIANTES)){
             gson.toJson(estudiantes, writer);

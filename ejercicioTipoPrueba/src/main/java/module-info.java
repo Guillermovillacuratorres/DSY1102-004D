@@ -6,6 +6,8 @@ module com.example.ejerciciotipoprueba {
     requires com.dlsc.formsfx;
     requires org.kordamp.bootstrapfx.core;
     requires com.google.gson;
+    requires java.sql;
+    requires mysql.connector.j;
 
     opens com.example.ejerciciotipoprueba to javafx.fxml;
     exports com.example.ejerciciotipoprueba;
