@@ -95,4 +95,36 @@ public class PersonaMysqlDao implements PersonaDao {
         }
 
     }
+
+    @Override
+    public void editar(Persona persona) {
+        String sql = "UPDATE persona SET tipo=?, nombre=?, edad=?, casado=?, titulo_profesional=?, sueldo=?, nivel_conocimientos=? WHERE id=?";
+
+        try(Connection con = DatabaseConnection.getConnection();
+            PreparedStatement ps = con.prepareStatement(sql)){
+
+            ps.setString(2,persona.getNombrePersona());
+            ps.setInt(3,persona.getEdadPersona());
+            ps.setBoolean(4,persona.isCasado());
+
+            if (persona instanceof Docente){
+                Docente docente = (Docente) persona;
+                ps.setString(1,"Docente");
+                ps.setString(5,docente.getTituloProfesional());
+                ps.setInt(6,docente.getSueldo());
+                ps.setNull(7, Types.VARCHAR);
+            }else{
+                Estudiante estudiante = (Estudiante) persona;
+                ps.setString(1,"Estudiante");
+                ps.setNull(5,Types.VARCHAR);
+                ps.setNull(6,Types.INTEGER);
+                ps.setString(7,estudiante.getNivelConocimientos());
+            }
+            ps.setInt(8,persona.getIdPersona());
+            ps.executeUpdate();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
+    }
 }

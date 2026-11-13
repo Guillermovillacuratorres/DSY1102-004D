@@ -16,5 +16,6 @@ public interface PersonaDao {
     List<Persona> listarPersonas();
     void insertar(Persona persona);
     void eliminar(int id);
+    void editar(Persona persona);
 
 }

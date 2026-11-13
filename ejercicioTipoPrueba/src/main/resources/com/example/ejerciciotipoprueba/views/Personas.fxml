@@ -19,6 +19,7 @@
       <Label layoutY="279.0" text="Sueldo:" />
       <Label layoutY="321.0" text="Nivel:" />
       <Button layoutX="109.0" layoutY="355.0" mnemonicParsing="false" onAction="#agregar" text="Agregar" />
+      <Button layoutX="170.0" layoutY="355.0" mnemonicParsing="false" onAction="#editar" text="Editar" />
       <Button layoutX="525.0" layoutY="323.0" mnemonicParsing="false" onAction="#eliminar" text="Eliminar" />
       <TableView fx:id="tblPersonas" layoutX="216.0" layoutY="29.0" prefHeight="267.0" prefWidth="379.0">
         <columns>

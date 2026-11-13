@@ -70,4 +70,9 @@ public class PersonaRepository {
         cargar();
     }
 
+    public void editar(Persona persona){
+        dao.editar(persona);
+        cargar();
+    }
+
 }

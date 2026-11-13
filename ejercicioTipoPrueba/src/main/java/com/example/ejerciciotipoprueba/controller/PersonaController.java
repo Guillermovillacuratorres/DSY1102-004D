@@ -76,6 +76,12 @@ public class PersonaController {
 
         tblPersonas.setItems(personas);
 
+        tblPersonas.getSelectionModel().selectedItemProperty().addListener((obs, anterior, seleccionada) -> {
+            if (seleccionada != null){
+                cargarFormulario(seleccionada);
+            }
+        });
+
         try{
             personaRepository.cargar();
             personas.setAll(personaRepository.listar());
@@ -162,6 +168,66 @@ public class PersonaController {
     }
 
     @FXML
+    public void editar(){
+        Persona personaSeleccionada =  tblPersonas.getSelectionModel().getSelectedItem();
+        if (personaSeleccionada == null){
+            helper.mostrarError("Debe seleccionar una persona");
+            return;
+        }
+
+        String  tipoPersona = cmbTipo.getValue();
+        Persona persona;
+
+        try{
+            int idPersona = personaSeleccionada.getIdPersona();
+
+            int edad;
+
+            try{
+                edad = Integer.parseInt(txtEdad.getText());
+                if (edad <= 0){
+                    helper.mostrarError("Debe ingresar un edad y no un " + edad);
+                    return;
+                }
+            }catch (Exception e){
+                helper.mostrarError("Solo se permiten numeros.");
+                return;
+            }
+
+
+            String nombre = txtNombre.getText();
+            if (nombre.isEmpty()){
+                helper.mostrarError("Debe ingresar un nombre");
+                return;
+            }
+            boolean casado =  chbCasado.isSelected();
+
+            if (TIPO_DOCENTE.equals(tipoPersona)){
+                String titulo = txtTitulo.getText();
+                int sueldo = Integer.parseInt(txtSueldo.getText());
+
+                persona = new Docente(idPersona,edad,nombre,casado,titulo,sueldo);
+            }else{
+                String nivel =  txtNivel.getText();
+                persona = new Estudiante(idPersona,edad,nombre,casado,nivel);
+            }
+
+            limpiarFormulario();
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return;
+        }
+
+        try{
+            personaRepository.editar(persona);
+            helper.mostrarInformacion("La persona se edito correctamente");
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        personas.setAll(personaRepository.listar());
+    }
+
+    @FXML
     public void cambiarTipo(){
      String tipo = cmbTipo.getValue();
      boolean esDocente = TIPO_DOCENTE.equals(tipo);
@@ -173,6 +239,25 @@ public class PersonaController {
     }
 
 
+
+    private void cargarFormulario(Persona persona){
+        limpiarFormulario();
+        txtEdad.setText(String.valueOf(persona.getEdadPersona()));
+        txtNombre.setText(persona.getNombrePersona());
+        chbCasado.setSelected(persona.isCasado());
+
+        if (persona instanceof Docente){
+            Docente docente = (Docente) persona;
+            cmbTipo.setValue(TIPO_DOCENTE);
+            txtTitulo.setText(docente.getTituloProfesional());
+            txtSueldo.setText(String.valueOf(docente.getSueldo()));
+        }else{
+            Estudiante estudiante = (Estudiante) persona;
+            cmbTipo.setValue(TIPO_ESTUDIANTE);
+            txtNivel.setText(estudiante.getNivelConocimientos());
+        }
+        cambiarTipo();
+    }
 
     private void limpiarFormulario(){
         txtTitulo.clear();
